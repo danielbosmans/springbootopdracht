@@ -1,0 +1,60 @@
+swagger: '2.0'
+info:
+  description: Description of the springboot opdracht rest api
+  version: '1.0'
+  title: Springboot opdracht Api Documentatie
+host: localhost
+basePath: /springbootopdracht
+paths:
+
+  /patients:
+    get:
+      summary: Get a list of patients
+      operationId: getPatients
+      produces:
+        - application/json
+      parameters:
+        - name: patientId
+          in: query
+          description: unique identification of the patient
+          type: string
+        - name: firstname
+          in: query
+          description: first name of the patient
+          type: string
+        - name: lastname
+          in: query
+          description: lastname of the patient
+          type: string
+          
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Patient"
+        400:
+          description: Bad request
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server error
+
+definitions:
+    
+    Patient:
+      type: object
+      description: representation of a patient object
+      properties: 
+        patientId:
+          type: string
+          description: unique identification of the patient
+          
+    Error:
+      type: object
+      description: if you do something stupid you will get an error
+      properties:
+        errorDescription: 
+          type: string
+          description: told you so:)
