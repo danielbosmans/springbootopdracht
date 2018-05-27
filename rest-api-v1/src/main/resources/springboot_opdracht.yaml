@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: Description of the springboot opdracht rest api
+  description: Beschrijving van de api voor vahad springboot opdracht
   version: '1.0'
   title: Springboot opdracht Api Documentatie
 host: localhost
@@ -26,7 +26,11 @@ paths:
           in: query
           description: lastname of the patient
           type: string
-          
+        - name: fromDateOfBirth
+          in: query
+          type: date
+          description: search for patients that are born after given date
+
       responses:
         200:
           description: OK
@@ -40,21 +44,71 @@ paths:
             $ref: "#/definitions/Error"
         500:
           description: Server error
+    post:
+      summary: Register a new patient
+      operationId: registerPatient
+      consumes:
+        - application/json
+      parameters:
+        - name: patient
+          in: body
+          description: The contents of the patient object
+          required: true
+          schema:
+            $ref: "#/definitions/Patient"
+      responses:
+        201:
+          description: OK
+
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+        409:
+          description: Already exists
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Server error
 
 definitions:
-    
+
     Patient:
       type: object
-      description: representation of a patient object
-      properties: 
+      description: Representation of a patient object
+      required:
+        - patientId
+        - firstname
+        - lastname
+      properties:
         patientId:
           type: string
           description: unique identification of the patient
-          
+          minLength: 1
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        firstname:
+          type: string
+          description: first name of the patient
+          maxLength: 30
+        lastname:
+          type: string
+          description: lastname of the patient
+          maxLength: 30
+        dateOfBirth:
+          type: string
+          format: date
+          description: the date in wich the patient was born
+        isInsured:
+          type: boolean
+          description: is the patient insured
+          default: false
+
     Error:
       type: object
       description: if you do something stupid you will get an error
       properties:
-        errorDescription: 
+        errorDescription:
           type: string
           description: told you so:)
