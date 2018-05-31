@@ -5,6 +5,7 @@ info:
   title: Springboot opdracht Api Documentatie
 host: localhost
 basePath: /springbootopdracht
+
 paths:
 
   /patients:
@@ -17,6 +18,7 @@ paths:
         - name: patientId
           in: query
           description: unique identification of the patient
+          pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
           type: string
         - name: firstname
           in: query
@@ -46,6 +48,10 @@ paths:
           description: Server error
     post:
       summary: Register a new patient
+      security:
+        - OauthSecurity:
+          - admin
+
       operationId: registerPatient
       consumes:
         - application/json

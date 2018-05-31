@@ -17,7 +17,6 @@ public interface PatientService {
      * Searches for patients in the database matching the given filter criteria {@link PatientFilter}
      *
      * @param filter {@link PatientFilter} containing zero or more filter criteria
-     *
      * @return list of {@link PatientDto} objects
      */
     List<PatientDto> searchPatients(final PatientFilter filter);
@@ -26,7 +25,7 @@ public interface PatientService {
      * Registers a new patient
      *
      * @param patientDto {@link PatientDto} that contains information about the new patient
-     * @return true registration has succeed, false when error has occurd
+     * @return true registration has succeed, false when error has occurred
      */
     boolean registerPatient(final PatientDto patientDto);
 

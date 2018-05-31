@@ -19,9 +19,15 @@ import org.vahad.opdracht.domein.PatientFilter;
  */
 @NoRepositoryBean
 @ParametersAreNonnullByDefault
-public final class PatientSpecification implements Specification<Patient> {
+public class PatientSpecification implements Specification<Patient> {
+   
     private final PatientFilter filter;
     
+    /**
+     * Contructor
+     *
+     * @param filter {@link PatientFilter} possible filters on patient object
+     */
     public PatientSpecification(final PatientFilter filter) {
         super();
         this.filter = filter;
